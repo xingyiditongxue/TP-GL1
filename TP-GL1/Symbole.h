@@ -9,7 +9,7 @@
 #define SYMBOLE_H_
 #include <iostream>
 using namespace std;
-enum symbole {NOMBRE=0,EXPR=1,MLTI=2,PLUS=3,FERMEPAR=4,OUVREPAR=5};
+enum symbole {NOMBRE=0,EXPR=1,MLTI=2,PLUS=3,FERMEPAR=4,OUVREPAR=5,FIN=6};
 class Symbole {
 protected:
 	int ident;

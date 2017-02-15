@@ -1,6 +1,5 @@
-#ifndef LEXE_H_
-#define LEXE_H_
-#endif // !LEXE.H
+#ifndef LEXER_H_
+#define LEXER_H_
 
 #include "Symbole.h"
 #include <iostream>
@@ -23,9 +22,14 @@ protected:
 
 	};
 public:
-	Lexer();
-	virtual ~Lexer() {};
+	Lexer();	
 	void consumeWordIgnored();
 	lexReturn * lex();
-	
+	Symbole* getNext();
+	virtual ~Lexer() {};
+
+	int next(void);
+	void shift(void);
 };
+
+#endif // !LEXER_H_
