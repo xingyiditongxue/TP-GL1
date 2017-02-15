@@ -10,10 +10,12 @@ union lexReturnValue {
 	bool end = false;
 	Symbole * symbol;
 };
+
 struct lexReturn {
 	lexReturnType returnType;
 	lexReturnValue returnValue;
 };
+
 class Lexer {
 protected:
 	istream &is;
@@ -22,7 +24,7 @@ protected:
 
 	};
 public:
-	Lexer();	
+	Lexer(istream &inputStream) : is(inputStream) {}
 	void consumeWordIgnored();
 	lexReturn * lex();
 	Symbole* getNext();
