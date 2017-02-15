@@ -6,7 +6,7 @@
  */
 
 #include "Etat.h"
-
+#include "Expr.h"
 
 Etat::~Etat() {
 	// TODO Auto-generated destructor stub
@@ -38,7 +38,7 @@ bool E1::transition (Automate & automate,Symbole *s)
         automate.decalage(s, new E5);
         break;
         default:
-        Expr *s1=(Expr*) automate.popSymbol();
+        Expr *s1=(Expr*) automate.topSymbol();
         automate.reduction(1,s1);
 
     }
@@ -124,9 +124,9 @@ bool E7::transition(Automate & automate,Symbole *s)
         automate.decalage(s,new E5);
         break;
         default:
-        Expr * s1 =(Expr*) automate.popSymbol();
+        Expr * s1 =(Expr*) automate.topSymbol();
         automate.popAndDestroySymbol();
-        Expr * s2=(Expr*) automate.popSymbol();
+        Expr * s2=(Expr*) automate.topSymbol();
         automate.reduction(3, new ExprPlus(s2,s1));
             }
     return false;

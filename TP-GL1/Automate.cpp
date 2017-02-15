@@ -13,11 +13,26 @@ void Automate::decalage(Symbole *s , Etat *e)
 	statestack.push(e);
 }
 void Automate::reduction(int n, Symbole *s){
-for(int i=0;i<n;i++)
-{ delete ( statestack.back());
-statestack.pop_back();
+	for(int i=0;i<n;i++){
+		delete ( statestack.top());
+		statestack.pop();
+	}
+	lexer->putSymbol(s);
 }
-lexer->putSymbol(s);
+
+Symbole * Automate::topSymbol() {
+	symbolstack.top();
 }
+
+void Automate::popAndDestroySymbol() {
+	delete(symbolstack.top());
+	symbolstack.pop();
+}
+
+//Symbole * Automate::exprPlus(Symbole * s1, Symbole * s2) {
+//
+//}
+
+
 
 
