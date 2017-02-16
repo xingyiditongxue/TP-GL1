@@ -6,7 +6,9 @@
  */
 
 #include "Etat.h"
-#include "Expr.h"
+//#include "Expr.h"
+#include "Automate.h"
+
 
 Etat::~Etat() {
 	// TODO Auto-generated destructor stub
@@ -38,7 +40,7 @@ bool E1::transition (Automate & automate,Symbole *s)
         automate.decalage(s, new E5);
         break;
         default:
-        Expr *s1=(Expr*) automate.topSymbol();
+        Expr *s1=(Expr*) automate.popSymbol();
         automate.reduction(1,s1);
 
     }
@@ -49,7 +51,7 @@ bool E2::transition (Automate & automate,Symbole *s)
 {
     switch (*s){
         case OUVREPAR:
-        automate.decalage(s, new E2);
+        automate.decalage(s, new E2());
         break;
         case NOMBRE:
         automate.decalage(s, new E3);
@@ -61,7 +63,11 @@ bool E2::transition (Automate & automate,Symbole *s)
     return false;
 }
 
-
+bool E3::transition(Automate & automate, Symbole * s) {
+	Expr *s1 = (Expr *)automate.popSymbol();
+	automate.reduction(1, s1);
+	return true;
+}
 
 E3::~E3() {
 	// TODO Auto-generated destructor stub
@@ -124,14 +130,29 @@ bool E7::transition(Automate & automate,Symbole *s)
         automate.decalage(s,new E5);
         break;
         default:
-        Expr * s1 =(Expr*) automate.topSymbol();
+        Expr * s1 =(Expr*) automate.popSymbol();
         automate.popAndDestroySymbol();
-        Expr * s2=(Expr*) automate.topSymbol();
+        Expr * s2=(Expr*) automate.popSymbol();
         automate.reduction(3, new ExprPlus(s2,s1));
-            }
+    }
     return false;
 }
 
+bool E8::transition(Automate & automate, Symbole*s) {
+	Expr * s1 = (Expr*)automate.popSymbol();
+	automate.popAndDestroySymbol();
+	Expr * s2 = (Expr*)automate.popSymbol();
+	automate.reduction(3, new ExprMult(s2, s1));
+	return true;
+}
+
+bool E9::transition(Automate & automate, Symbole*s) {
+	automate.popAndDestroySymbol();
+	Expr * s1 = (Expr*)automate.popSymbol();
+	automate.popAndDestroySymbol();
+	automate.reduction(3, new ExprPar(s1));
+	return true;
+}
 
 E9::~E9() {
 	// TODO Auto-generated destructor stub

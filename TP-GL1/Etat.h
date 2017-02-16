@@ -12,19 +12,14 @@
 using namespace std;
 
 #include "Symbole.h"
-#include "Automate.h"
+#include "Expr.h"
 class Automate;
 class Etat {
 protected:
 	string name;
 public:
-	Etat(string name) {
-		this->name = name;
-	}
-	;
-	Etat() {
-	}
-	;
+	Etat(string name) { this->name = name; };
+	Etat() {};
 	virtual ~Etat();
 	void print() const;
 	virtual bool transition(Automate & automate, Symbole*s)=0;
@@ -33,10 +28,7 @@ public:
 
 class E0: public Etat {
 public:
-	E0() :
-			Etat("E0") {
-	}
-	;
+	E0() : Etat("E0") {};
 	bool transition(Automate & automate, Symbole*s);
 	virtual ~E0() {
 	}
@@ -45,123 +37,64 @@ public:
 
 class E1: public Etat {
 public:
-	E1() :
-			Etat("E1") {
-	}
-	;
+	E1() : Etat("E1") {};
 	bool transition(Automate & automate, Symbole*s);
-	virtual ~E1() {
-	}
-	;
+	virtual ~E1() {};
 };
 
 class E2: public Etat {
 public:
-	E2() :
-			Etat("E2") {
-	}
-	;
+	E2() : Etat("E2") {};
 	bool transition(Automate & automate, Symbole*s);
-	virtual ~E2() {
-	}
-	;
+	virtual ~E2() {};
 };
 
 class E3: public Etat {
 public:
-	E3() :
-			Etat("E3") {
-	}
-	;
+	E3() : Etat("E3") {};
 	virtual ~E3();
-	bool transition(Automate & automate, Symbole*s) {
-		Expr *s1 = (Expr*) automate.popSymbol();
-		automate.reduction(1, s1);
-		return true;
-	}
-	;
+	bool transition(Automate & automate, Symbole*s);
 };
 
 class E4: public Etat {
 public:
-	E4() :
-			Etat("E4") {
-	}
-	;
+	E4() : Etat("E4") {};
 	bool transition(Automate & automate, Symbole*s);
-	virtual ~E4() {
-	}
-	;
+	virtual ~E4() {};
 };
+
 class E5: public Etat {
 public:
-	E5() :
-			Etat("E5") {
-	}
-	;
+	E5() : Etat("E5") {};
 	bool transition(Automate & automate, Symbole*s);
-	virtual ~E5() {
-	}
-	;
+	virtual ~E5() {};
 };
 
 class E6: public Etat {
 public:
-	E6() :
-			Etat("E6") {
-	}
-	;
+	E6() : Etat("E6") {};
 	bool transition(Automate & automate, Symbole*s);
-	virtual ~E6() {
-	}
-	;
+	virtual ~E6() {};
 };
 
 class E7: public Etat {
 public:
-	E7() :
-			Etat("E7") {
-	}
-	;
+	E7() : Etat("E7") {};
 	bool transition(Automate & automate, Symbole*s);
-	virtual ~E7() {
-	}
-	;
+	virtual ~E7() {};
 };
 
 class E8: public Etat {
 public:
-	E8() :
-			Etat("E8") {
-	}
-	;
-	bool transition(Automate & automate, Symbole*s) {
-		Expr * s1 = (Expr*) automate.popSymbol();
-		automate.popAndDestroySymbol();
-		Expr * s2 = (Expr*) automate.popSymbol();
-		automate.reduction(3, new ExprMult(s2, s1));
-		return true;
-	}
-	;
-	virtual ~E8() {
-	}
-	;
+	E8() : Etat("E8") {};
+	bool transition(Automate & automate, Symbole*s);
+	virtual ~E8() {};
 };
 
 class E9: public Etat {
 public:
-	E9() :
-			Etat("E9") {
-	}
-	;
+	E9() : Etat("E9") {};
 	virtual ~E9();
-	bool transition(Automate & automate, Symbole*s) {
-		automate.popAndDestroySymbol();
-		Expr * s1 = (Expr*) automate.popSymbol();
-		automate.popAndDestroySymbol();
-		automate.reduction(3, new ExpPar(s1));
-		return true;
-	}
-	;
+	bool transition(Automate & automate, Symbole*s);
 };
 #endif /* ETAT_H_ */
